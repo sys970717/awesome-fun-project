@@ -1,5 +1,6 @@
 package io.tdd.sys.yeongSu.web;
 
+import io.tdd.sys.yeongSu.domain.UserLoginRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +13,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/session")
-    public void session(@RequestBody String name,
-        @RequestBody String password) {
-        System.out.println(name);
+    public void session(@RequestBody UserLoginRequest users) {
+        System.out.println(users.getAccount());
+        System.out.println(users.getPassword());
     }
-
 }

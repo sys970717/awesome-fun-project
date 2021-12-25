@@ -4,12 +4,14 @@
       layout:decorator="layout/bootstrap4">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User login</title>
+    <script src="/js/lib/axios.min.js"></script>
+    <script src="/js/src/session.js"></script>
 </head>
 <body>
-    <form method="post" id="session" action="/user/session">
+    <form method="post" id="session" action="/user/session" onsubmit="return user.login(this)">
         <input type="text" name="id" value="" />
-        <input type="" name="" value="" />
+        <input type="password" name="password" value="" />
         <button>로그인</button>
     </form>
 </body>
