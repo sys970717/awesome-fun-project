@@ -4,7 +4,6 @@ import io.tdd.sys.yeongSu.domain.repository.UserRepository;
 import io.tdd.sys.yeongSu.domain.user.User;
 import io.tdd.sys.yeongSu.domain.repository.UserRepositoryCustom;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.Optional;
