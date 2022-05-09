@@ -1,6 +1,5 @@
 package io.tdd.sys.yeongSu.domain.repository.impl;
 
-import io.tdd.sys.yeongSu.domain.repository.UserRepository;
 import io.tdd.sys.yeongSu.domain.user.User;
 import io.tdd.sys.yeongSu.domain.repository.UserRepositoryCustom;
 import org.springframework.stereotype.Repository;
