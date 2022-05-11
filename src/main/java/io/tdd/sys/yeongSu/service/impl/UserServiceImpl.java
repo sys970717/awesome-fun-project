@@ -4,12 +4,15 @@ import io.tdd.sys.yeongSu.domain.repository.UserRepository;
 import io.tdd.sys.yeongSu.domain.user.User;
 import io.tdd.sys.yeongSu.dto.UserLoginDto;
 import io.tdd.sys.yeongSu.dto.UserRegistDto;
+import io.tdd.sys.yeongSu.exception.ApiException;
 import io.tdd.sys.yeongSu.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,13 +24,17 @@ public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
-    public UserLoginDto.Response userLogin(UserLoginDto.Request user) {
-        logger.info("Hi Service");
-        logger.info("Account = "+ user.getAccount());
+        public UserLoginDto.Response userLogin(UserLoginDto.Request user) {
+            logger.info("Hi Service");
+            logger.info("Account = "+ user.getAccount());
 
-        User userEntity = userRepository.findByUserIdAndPassword(user.getAccount(), user.getPassword()).orElseThrow();
+        Optional<User> userEntity = userRepository.findByUserIdAndPassword(user.getAccount(), user.getPassword());
 
-        return UserLoginDto.Response.of(userEntity.getUserId(), userEntity.getName());
+        if(!userEntity.isPresent()) {
+            throw new ApiException(400, "is not exist");
+        }
+
+        return UserLoginDto.Response.of(userEntity.get().getUserId(), userEntity.get().getName());
     }
 
     @Override
