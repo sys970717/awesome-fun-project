@@ -1,5 +1,6 @@
 package io.tdd.sys.yeongSu.web;
 
+import io.tdd.sys.yeongSu.config.SessionConstants;
 import io.tdd.sys.yeongSu.dto.UserLoginDto;
 import io.tdd.sys.yeongSu.dto.UserRegistDto;
 import io.tdd.sys.yeongSu.service.UserService;
@@ -10,6 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -28,6 +33,7 @@ public class UserController {
     @PostMapping(value = "/session")
     public String session(@ModelAttribute("loginForm") UserLoginDto.Request req,
         BindingResult bindingResult,
+        HttpServletRequest request,
         @RequestParam(defaultValue = "/") String redirectURL
     ) {
 
@@ -36,6 +42,13 @@ public class UserController {
         }
 
         UserLoginDto.Response user = userService.userLogin(req);
+        if(user == null) {
+            bindingResult.reject("loginFail", "아이디 혹은 암호가 일치하지 않습니다.");
+            return "users/login";
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConstants.LOGIN_USER, user);
 
         return "redirect:" + redirectURL;
     }
@@ -47,14 +60,10 @@ public class UserController {
 
     @PostMapping(value = "/join/personal")
     public String join(@ModelAttribute("joinForm") UserRegistDto userRegistDto,
-        @RequestParam(defaultValue = "/") String redirectURL ) {
-        logger.info(userRegistDto.getUserId());
-        logger.info(userRegistDto.getPassword());
-        logger.info(userRegistDto.getName());
-
+        @RequestParam(defaultValue = "/") String redirectURL) {
         userService.joinUser(userRegistDto);
 
-        return "redirect:" + redirectURL;
+        return "redirect:" + "/user" + redirectURL;
     }
 
     @GetMapping(value="/my")

@@ -24,17 +24,13 @@ public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
-        public UserLoginDto.Response userLogin(UserLoginDto.Request user) {
-            logger.info("Hi Service");
-            logger.info("Account = "+ user.getAccount());
-
-        Optional<User> userEntity = userRepository.findByUserIdAndPassword(user.getAccount(), user.getPassword());
-
-        if(!userEntity.isPresent()) {
-            throw new ApiException(400, "is not exist");
+    public UserLoginDto.Response userLogin(UserLoginDto.Request user) {
+        User userEntity = userRepository.findByUserIdAndPassword(user.getAccount(), user.getPassword()).orElse(null);
+        if(userEntity == null) {
+            return null;
         }
 
-        return UserLoginDto.Response.of(userEntity.get().getUserId(), userEntity.get().getName());
+        return UserLoginDto.Response.of(userEntity.getUserId(), userEntity.getName());
     }
 
     @Override
