@@ -25,7 +25,7 @@ public class UserController {
     private final UserService userService;
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/login")
     public String loginForm(@ModelAttribute("loginForm") UserLoginDto.Request loginForm)  {
         return loginForm.getAccount() == null ? "users/login" : "redirect:/";
     }
@@ -50,7 +50,15 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute(SessionConstants.LOGIN_USER, user);
 
-        return "redirect:" + redirectURL;
+        return "redirect:" + (!redirectURL.equals("") ? redirectURL : "");
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(session != null) session.invalidate(); // 세션 삭제
+        return "redirect:/";
+
     }
 
     @GetMapping(value = "/join/personal")
@@ -63,10 +71,10 @@ public class UserController {
         @RequestParam(defaultValue = "/") String redirectURL) {
         userService.joinUser(userRegistDto);
 
-        return "redirect:" + "/user" + redirectURL;
+        return "redirect:" + "/user/login" + redirectURL;
     }
 
-    @GetMapping(value="/my")
+    @GetMapping(value="/")
     public String myPage() {
         return "users/my";
     }

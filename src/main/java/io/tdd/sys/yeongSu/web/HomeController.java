@@ -17,10 +17,17 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/")
-public class MainController {
+public class HomeController {
     @GetMapping(value="/")
-    public String main (@SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) UserLoginDto.Response user, Model model) {
-        model.addAttribute("user", user);
-        return "main/index.html";
+    public String home (@SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) UserLoginDto.Response user, Model model) {
+        // 세션에 회원 데이터가 없으면 홈으로 이동
+        if (user == null) {
+            return "main/index.html";
+        }
+
+        // 세션이 유지되면 로그인 홈으로 이동
+        model.addAttribute("member", user);
+
+        return "main/loginHome";
     }
 }

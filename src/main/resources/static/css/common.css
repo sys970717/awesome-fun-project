@@ -1,0 +1,12 @@
+
+nav > ul.gnb {
+    top: 59px;
+    right: 117px;
+    position: absolute;
+    z-index: 15;
+}
+nav > ul.gnb > li {
+    margin-left: 23px;
+    float: left;
+    position: relative;
+}

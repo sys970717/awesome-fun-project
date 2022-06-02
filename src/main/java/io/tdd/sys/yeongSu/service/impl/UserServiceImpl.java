@@ -4,15 +4,12 @@ import io.tdd.sys.yeongSu.domain.repository.UserRepository;
 import io.tdd.sys.yeongSu.domain.user.User;
 import io.tdd.sys.yeongSu.dto.UserLoginDto;
 import io.tdd.sys.yeongSu.dto.UserRegistDto;
-import io.tdd.sys.yeongSu.exception.ApiException;
 import io.tdd.sys.yeongSu.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
