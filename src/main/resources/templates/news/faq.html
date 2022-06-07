@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>faq</title>
+</head>
+<body>
+<nav>
+    <ul class="gnb">
+        <li th:text="|${member.name} 님, 안녕하세요!|"> 안녕하세요!
+            <ul>
+                <li> <a href=""> 주문 내역 </a> </li>
+                <li> <a href=""> 내 문의 내역 </a> </li>
+            </ul>
+        </li>
+        <li>
+            <a href="/cs"> 고객센터 </a>
+            <ul>
+                <li><a href="">공지사항</a></li>
+                <li><a href="">자주하는 질문</a></li>
+                <li><a href="">1:1문의</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

@@ -1,3 +1,6 @@
+a {
+    text-decoration: none;
+}
 
 nav > ul.gnb {
     top: 59px;
@@ -9,4 +12,17 @@ nav > ul.gnb > li {
     margin-left: 23px;
     float: left;
     position: relative;
+    list-style: none;
+    width: 100px;
+}
+
+ul.gnb > li > ul {
+    width: 80px;
+    position: absolute;
+    padding: inherit;
+    display: none;
+}
+
+ul.gnb > li:hover > ul {
+    display: block;
 }

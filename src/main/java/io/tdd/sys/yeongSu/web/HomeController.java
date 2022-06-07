@@ -30,4 +30,13 @@ public class HomeController {
 
         return "main/loginHome";
     }
+
+    @GetMapping("/test")
+    public ModelAndView fragmentHome (ModelAndView modelAndView, @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) UserLoginDto.Response user) {
+        // 세션이 유지되면 로그인 홈으로 이동
+        modelAndView.addObject("member", user);
+        modelAndView.setViewName("fragments/layout/defaultLayout.html");
+        return modelAndView;
+    }
 }
+

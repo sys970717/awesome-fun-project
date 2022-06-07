@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">sys970717</title>
+    <!-- 공통 css, js, meta tag -->
+    <th:block th:replace="fragments/commonHead"></th:block>
+    <script type="text/javascript">
+        function openMenu (type) {
+            document.getElementById("my_menu_detail").classList.remove('active');
+            document.getElementById("cs_detail").classList.remove('active');
+            switch(type) {
+                case 'cs':
+                    document.getElementById("cs_detail").classList.remove('inactive');
+                    document.getElementById("cs_detail").classList.add('active');
+                    break;
+                case 'my_menu_detail':
+                    document.getElementById("my_menu_detail").classList.remove('inactive');
+                    document.getElementById("my_menu_detail").classList.add('active');
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+<hedaer></hedaer>
+<nav>
+    <ul class="gnb">
+        <li>
+            <th:block th:if="${member == null}">
+                <button class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'"
+                        th:onclick="|location.href='@{/user/login}'|" type="button">
+                    로그인
+                </button>
+            </th:block>
+            <th:block th:if="${member != null}">
+                <a href="" th:text="|${member.name} 님, 안녕하세요!|"> 안녕하세요!</a>
+            </th:block>
+            <ul id="my_menu_detail">
+                <li> <a href=""> 주문 내역 </a> </li>
+                <li> <a href=""> 내 문의 내역 </a> </li>
+            </ul>
+        </li>
+        <li>
+            <a href="/cs"> 고객센터 </a>
+            <ul id="cs_detail">
+                <li><a href="">공지사항</a></li>
+                <li><a href="">자주하는 질문</a></li>
+                <li><a href="">1:1문의</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<h1>기본 레이아웃</h1>
+<!-- page content body 구성 -->
+<th:block layout:fragment="content"></th:block>
+<!-- 공통 footer -->
+<footer th:replace="fragments/commonFooter :: commonFooter"></footer>
+<!-- 공통 javascript -->
+<!--<th:block th:replace="fragments/commonScript"></th:block>-->
+<!-- page content javascript -->
+<!--<th:block layout:fragment="pageCustomScript"></th:block>-->
+</body>
+</html>
